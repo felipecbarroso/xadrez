@@ -4,21 +4,34 @@ using tabuleiro;
 namespace Xadrez {
     class Program {
         static void Main(string[] args) {
-            //try {
-            //    Tabuleiro tab = new Tabuleiro(8, 8);
+            try {
+                PartidaDeXadrez partida = new PartidaDeXadrez();
 
-            //    tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(0, 0));
-            //    tab.colocarPeca(new Torre(tab, Cor.Preta), new Posicao(1, 3));
-            //    tab.colocarPeca(new Rei(tab, Cor.Preta), new Posicao(2, 4));
-            //    Tela.imprimirTabuleiro(tab);
-            //}
-            //catch (TabuleiroException e){
-            //    Console.WriteLine(e.Message);
-            //}
+                while (!partida.terminada) {
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tab);
+                    Console.WriteLine();
+                    Console.WriteLine("Turno: " + partida.turno);
+                    Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
 
-            PosicaoXadrez pos = new PosicaoXadrez('c', 7);
-            Console.WriteLine(pos);
-            Console.WriteLine(pos.toPosicao());
+                    Console.WriteLine();
+                    Console.Write("Origem: ");
+                    Posicao origem = Tela.lerPosicaoXadrex().toPosicao();
+                    partida.validarPosicaoOrigem(origem);
+                    bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
+
+                    Console.Clear();
+                    Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.lerPosicaoXadrex().toPosicao();
+                    partida.realizaJogada(origem, destino);
+                }
+
+            }
+            catch (TabuleiroException e) {
+                Console.WriteLine(e.Message);
+            }
+
             Console.ReadLine();
         }
     }
