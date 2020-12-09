@@ -1,6 +1,7 @@
 ﻿using System;
 using tabuleiro;
 
+
 namespace Xadrez {
     class Program {
         static void Main(string[] args) {
@@ -15,16 +16,16 @@ namespace Xadrez {
 
                     Console.WriteLine();
                     Console.Write("Origem: ");
-                    Posicao origem = Tela.lerPosicaoXadrex().toPosicao();
-                    partida.validarPosicaoOrigem(origem);
+                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                    partida.validarPosicaoDeOrigem(origem);
                     bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis();
 
                     Console.Clear();
                     Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis);
                     Console.WriteLine();
                     Console.Write("Destino: ");
-                    Posicao destino = Tela.lerPosicaoXadrex().toPosicao();
-                    partida.validarPosicaoDestino(origem, destino);
+                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                    partida.validarPosicaoDeDestino(origem, destino);
 
                     partida.realizaJogada(origem, destino);
                 }
@@ -33,6 +34,8 @@ namespace Xadrez {
                     Console.ReadLine();
                 }
             }
+            Console.Clear();
+            Tela.imprimirPartida(partida);
 
         }
 
